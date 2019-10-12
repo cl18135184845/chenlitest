@@ -1,0 +1,62 @@
+https://baijiahao.baidu.com/s?id=1619544681032320225&wfr=spider&for=pc
+
+如何使用git把本地代码上传（更新）到gitHub上
+
+详细步骤：
+1.建立git仓库
+   新建一个本地仓库（文件夹）->进入文件夹 右击 git->Git Bash Here 
+   执行命令：git init
+   之后在文件夹中会创建一个.git文件夹
+2.添加需要上传到gitHub的代码到本地仓库
+   执行命令：git status 
+                   git add 文件名/git add --all
+3.将文件提交到暂存区并且给添加的文件加注释 
+   执行命令：git commit -m "添加注释"
+4.在gitHub上创建一个自己都仓库
+  点击Create repository ->成功后->复制仓库的https
+5.将本地仓库关联到gitHub上 （链接远程仓库）
+   执行命令：git remote add origin 仓库地址
+   例如：$ git remote add origin https://github.com/cl18135184845/chenlitest.git
+6.上传代码到gitHub远程仓库 
+    执行命令：git pull --rebase origin master（执行报错：failed to push some refs to... 原因：本地代码缺失README.md文件，提交失败）
+                    备注：pull=fetch+merge
+                     git fetch                   从远程分支拉取代码 例如：$git fetch origin master
+                     git merge 分支名      合并分支
+                     git pull                     将远程主机的最新内容拉取下来直接合并
+                               
+    特别注意：第一次执行需要配置你的Username和Password 
+                    git config --global user.email 1932257232@qq.com
+                    git config --global user.name  cl181351848
+7.最后上传代码 （推送到远端服务器）
+   执行命令：git push -u origin master
+
+  提交“三步走”：
+                 git add 把文件从工作区提交到stage（暂存区）
+　　　　　 git commit 把文件从stage（暂存区）提交到master（当前分支）
+　　　　　 git push 把文件从master（当前分支）提交到github
+
+
+master 分支：
+  git branch                    列出本地所有分支
+  git branch -r                 列出远端所有分支   origin
+  git branch -a                列出本地和远端所有分支
+  git checkout -b   分支名称              创建一个分支并且切换
+  git branch 分支名                            创建一个分支并不切换
+  git checkout 分支名称                     切换分支
+  git merge  分支名                            合并分支 （子级的名称）
+  git branch -d 分支名                        删除分支本地 （注意：不能在本分支删除自己）
+  git push origin --delete  分支名        删除远端分支
+  git branch -dr 分支名                       删除远端分支
+
+
+其他命令：
+      git diff 查看文件（未暂存）的更新
+查看提交日志（历史）： 
+      git  log          只列出时间和提交信息
+      git log -p -2   查看最近两次提交的历史 并且列出改动的内容差异
+      git  log --oneline --graph   以图表的形式列出提交历史
+
+建立本地到上游（远端）仓的链接 --这样代码才能提交上去,
+git branch --set-upstream-to=origin/dev ,
+取消对master的跟踪,
+git branch --unset-upstream master.
